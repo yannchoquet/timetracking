@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+        <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
     </head>
     <body>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            {{ include('block/menu.html.twig') }}
+        {% endif %}
         {% block body %}{% endblock %}
+
         {% block javascripts %}{% endblock %}
     </body>
 </html>
