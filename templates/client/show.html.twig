@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Client{% endblock %}
+
+{% block body %}
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Clients
+                </h1>
+                <h2 class="subtitle">
+                    Client view
+                </h2>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <table class="table is-fullwidth">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ client.id }}</td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td>{{ client.name }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <a class="button" href="{{ path('client_index') }}"><span class="icon is-medium"><i class="fas fa-chevron-circle-left"></i></span><span>back to list</span></a>
+
+        <a class="button" href="{{ path('client_edit', {'id': client.id}) }}"><span class="icon is-medium"><i class="fas fa-edit"></i></span><span>edit</span></a>
+        <hr />
+        {{ include('client/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

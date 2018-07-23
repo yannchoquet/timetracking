@@ -1,7 +1,7 @@
-<nav class="navbar is-transparent">
+<nav class="navbar navbar has-shadow is-spaced">
     <div class="navbar-brand">
         <a class="navbar-item" href="https://bulma.io">
-            <svg height="30px" width="30px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+            <svg height="30px" width="30px" version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                  viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve">
 <g>
     <path d="M31.634,37.989c1.041-0.081,1.99-0.612,2.606-1.459l9.363-12.944c0.287-0.397,0.244-0.945-0.104-1.293
@@ -47,7 +47,7 @@
         </div>
     </div>
 
-    <div id="navbarExampleTransparentExample" class="navbar-menu">
+    <div class="navbar-menu">
         <div class="navbar-start">
             <a class="navbar-item" href="{{ url('home') }}">
                 Home
@@ -61,7 +61,7 @@
                         Overview
                     </a>
                     <hr class="navbar-divider">
-                    <a class="navbar-item" href="#">
+                    <a class="navbar-item" href="{{ url('client_index') }}">
                         Clients
                     </a>
                     <a class="navbar-item" href="#">
@@ -74,7 +74,7 @@
         <nav class="navbar-end" role="navigation" aria-label="dropdown navigation">
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
-                    Profile
+                    {{ app.user.username }}
                 </a>
 
                 <div class="navbar-dropdown is-right">

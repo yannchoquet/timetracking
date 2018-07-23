@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Client index{% endblock %}
+
+{% block body %}
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Clients
+                </h1>
+                <h2 class="subtitle">
+                    Clients list
+                </h2>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <table class="table is-fullwidth">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th class="has-text-right">actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for client in clients %}
+                <tr>
+                    <td>{{ client.id }}</td>
+                    <td>{{ client.name }}</td>
+                    <td class="has-text-right">
+                        <a href="{{ path('client_show', {'id': client.id}) }}"><span class="icon is-medium"><i class="fas fa-eye"></i></span></a>
+                        <a href="{{ path('client_edit', {'id': client.id}) }}"><span class="icon is-medium"><i class="fas fa-edit"></i></span></a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a class="button" href="{{ path('client_new') }}">
+            <span class="icon is-medium">
+              <i class="fas fa-plus-square"></i>
+            </span>
+            <span>Create new</span>
+        </a>
+    </div>
+
+{% endblock %}

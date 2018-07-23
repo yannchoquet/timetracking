@@ -1,0 +1,12 @@
+{% form_theme form 'form/fields.html.twig' %}
+
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div class="field is-grouped">
+        <p class="control">
+            <button class="button is-primary">
+                {{ button_label|default('Save') }}
+            </button>
+        </p>
+    </div>
+{{ form_end(form) }}
