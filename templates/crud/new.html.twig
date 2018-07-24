@@ -1,23 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Client{% endblock %}
+{% block title %}New {{ entity_name | capitalize }}{% endblock %}
 
 {% block body %}
     <section class="hero">
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
-                    Clients
+                    {{ entity_name | capitalize }}
                 </h1>
                 <h2 class="subtitle">
-                    Create new Client
+                    Create new
                 </h2>
             </div>
         </div>
     </section>
     <div class="container">
-        {{ include('client/_form.html.twig') }}
+        {{ include('crud/_form.html.twig') }}
         <hr />
-        <a class="button" href="{{ path('client_index') }}"><span class="icon is-medium"><i class="fas fa-chevron-circle-left"></i></span><span>back to list</span></a>
+        <a class="button" href="{{ path(entity_name ~ '_index') }}"><span class="icon is-medium"><i class="fas fa-chevron-circle-left"></i></span><span>back to list</span></a>
     </div>
 {% endblock %}

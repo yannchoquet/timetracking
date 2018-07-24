@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Client index{% endblock %}
+{% block title %} {{ entity_name | capitalize }} index{% endblock %}
 
 {% block body %}
     <section class="hero">
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
-                    Clients
+                    {{ entity_name | capitalize }}
                 </h1>
                 <h2 class="subtitle">
-                    Clients list
+                    List
                 </h2>
             </div>
         </div>
@@ -19,19 +19,21 @@
         <table class="table is-fullwidth">
             <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
+                {% for key, value in attributes %}
+                <th>{{ value | capitalize }}</th>
+                {% endfor %}
                 <th class="has-text-right">actions</th>
             </tr>
             </thead>
             <tbody>
-            {% for client in clients %}
+            {% for data in list %}
                 <tr>
-                    <td>{{ client.id }}</td>
-                    <td>{{ client.name }}</td>
+                    {% for value in data %}
+                    <td>{{ value }}</td>
+                    {% endfor %}
                     <td class="has-text-right">
-                        <a href="{{ path('client_show', {'id': client.id}) }}"><span class="icon is-medium"><i class="fas fa-eye"></i></span></a>
-                        <a href="{{ path('client_edit', {'id': client.id}) }}"><span class="icon is-medium"><i class="fas fa-edit"></i></span></a>
+                        <a href="{{ path( entity_name ~ '_show', {'id': data.id}) }}"><span class="icon is-medium"><i class="fas fa-eye"></i></span></a>
+                        <a href="{{ path( entity_name ~ '_edit', {'id': data.id}) }}"><span class="icon is-medium"><i class="fas fa-edit"></i></span></a>
                     </td>
                 </tr>
             {% else %}
@@ -42,7 +44,7 @@
             </tbody>
         </table>
 
-        <a class="button" href="{{ path('client_new') }}">
+        <a class="button" href="{{ path( entity_name ~ '_new') }}">
             <span class="icon is-medium">
               <i class="fas fa-plus-square"></i>
             </span>

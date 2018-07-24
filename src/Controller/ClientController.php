@@ -9,12 +9,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * @Route("/admin/client")
  */
 class ClientController extends Controller
 {
+
+    CONST ENTITY_NAME = 'client';
     /**
      * @Route("/", name="client_index", methods="GET")
      * @param ClientRepository $clientRepository
@@ -22,7 +26,17 @@ class ClientController extends Controller
      */
     public function index(ClientRepository $clientRepository): Response
     {
-        return $this->render('client/index.html.twig', ['clients' => $clientRepository->findAll()]);
+
+        $serializer = new Serializer(array(new ObjectNormalizer()));
+        $list = $serializer->normalize($clientRepository->findAll(), null, array(
+            'attributes' => $this->getAttributesList()
+        ));
+
+        return $this->render('crud/index.html.twig', [
+            'attributes' => $this->getAttributesList(),
+            'list' => $list,
+            'entity_name' => self::ENTITY_NAME,
+        ]);
     }
 
     /**
@@ -44,8 +58,9 @@ class ClientController extends Controller
             return $this->redirectToRoute('client_index');
         }
 
-        return $this->render('client/new.html.twig', [
+        return $this->render('crud/new.html.twig', [
             'client' => $client,
+            'entity_name' => self::ENTITY_NAME,
             'form' => $form->createView(),
         ]);
     }
@@ -57,7 +72,18 @@ class ClientController extends Controller
      */
     public function show(Client $client): Response
     {
-        return $this->render('client/show.html.twig', ['client' => $client]);
+        $serializer = new Serializer(array(new ObjectNormalizer()));
+        $data = $serializer->normalize($client, null, array(
+            'attributes' => array(
+                'id',
+                'name'
+            )
+        ));
+
+        return $this->render('crud/show.html.twig', [
+            'data' => $data,
+            'entity_name' => self::ENTITY_NAME
+        ]);
     }
 
     /**
@@ -74,8 +100,14 @@ class ClientController extends Controller
             return $this->redirectToRoute('client_edit', ['id' => $client->getId()]);
         }
 
-        return $this->render('client/edit.html.twig', [
-            'client' => $client,
+        $serializer = new Serializer(array(new ObjectNormalizer()));
+        $data = $serializer->normalize($client, null, array(
+            'attributes' => $this->getAttributesList()
+        ));
+
+        return $this->render('crud/edit.html.twig', [
+            'data' => $data,
+            'entity_name' => self::ENTITY_NAME,
             'form' => $form->createView(),
         ]);
     }
@@ -95,5 +127,16 @@ class ClientController extends Controller
         }
 
         return $this->redirectToRoute('client_index');
+    }
+
+    /**
+     * @return array
+     */
+    public function getAttributesList(): array
+    {
+        return [
+            'id',
+            'name'
+        ];
     }
 }

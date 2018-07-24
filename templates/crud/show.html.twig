@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ entity_name | capitalize }}{% endblock %}
+
+{% block body %}
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    {{ entity_name | capitalize }}
+                </h1>
+                <h2 class="subtitle">
+                    View
+                </h2>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <table class="table is-fullwidth">
+            <tbody>
+                {% for key, value in data %}
+                    <tr>
+                        <th>{{ key|capitalize }}</th>
+                        <td>{{ value }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+        <a class="button" href="{{ path(entity_name ~ '_index') }}"><span class="icon is-medium"><i class="fas fa-chevron-circle-left"></i></span><span>back to list</span></a>
+
+        <a class="button" href="{{ path(entity_name ~ '_edit', {'id': data.id}) }}"><span class="icon is-medium"><i class="fas fa-edit"></i></span><span>edit</span></a>
+        <hr />
+        {{ include('crud/_delete_form.html.twig') }}
+    </div>
+{% endblock %}
