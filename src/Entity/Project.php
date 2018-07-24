@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,16 @@ class Project
      * @ORM\Column(type="integer", nullable=true)
      */
     private $timeGoal;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Time", mappedBy="project", orphanRemoval=true)
+     */
+    private $time;
+
+    public function __construct()
+    {
+        $this->time = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -69,6 +81,37 @@ class Project
     public function setTimeGoal(?int $timeGoal): self
     {
         $this->timeGoal = $timeGoal;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Time[]
+     */
+    public function getTime(): Collection
+    {
+        return $this->time;
+    }
+
+    public function addTime(Time $time): self
+    {
+        if (!$this->time->contains($time)) {
+            $this->time[] = $time;
+            $time->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTime(Time $time): self
+    {
+        if ($this->time->contains($time)) {
+            $this->time->removeElement($time);
+            // set the owning side to null (unless already changed)
+            if ($time->getProject() === $this) {
+                $time->setProject(null);
+            }
+        }
 
         return $this;
     }
