@@ -1,2 +1,6 @@
 @charset "utf-8";
 @import "~bulma/bulma";
+@import "~selectize/dist/css/selectize.css";
+.selectize-control.single .selectize-input:after{
+  display:none;
+}

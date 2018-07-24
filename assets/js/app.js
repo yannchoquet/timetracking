@@ -2,9 +2,8 @@ require('../css/app.scss');
 
 const $ = require('jquery');
 require('selectize');
-/*
+
 $('select').selectize({
-    create: true,
+    create: false,
     sortField: 'text'
 });
-*/
